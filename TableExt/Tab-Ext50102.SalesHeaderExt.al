@@ -26,6 +26,28 @@ tableextension 50102 SalesHeaderExt extends "Sales Header"
             DataClassification = ToBeClassified;
             Editable = false;
         }
+        field(50104; "End User"; Text[100])           ///////Nandish 02-24/////////
+        {
+            Caption = 'End User';
+            DataClassification = ToBeClassified;
+            trigger OnLookup()
+            var
+                CustomerRec: Record Customer;
+            begin
+                CustomerRec.Reset();
+                if CustomerRec.FindFirst() then begin
+                    if Page.RunModal(Page::"Customer List", CustomerRec) = Action::LookupOK then begin
+                        "End User" := CustomerRec.Name;
+                        "End User Code" := CustomerRec."No.";
+                    end;
+                end;
+            end;
+        }
+        field(50105; "End User Code"; Code[20])           ///////Nandish 02-24/////////
+        {
+            Caption = 'End User Code';
+            DataClassification = ToBeClassified;
+        }
 
     }
     trigger OnAfterInsert()
@@ -36,6 +58,8 @@ tableextension 50102 SalesHeaderExt extends "Sales Header"
         OpportunityRec.SetRange("No.", Rec."Opportunity No.");
         if OpportunityRec.FindFirst() then begin
             Rec."CRN No." := OpportunityRec."CRN No.";
+            Rec."End User" := OpportunityRec."End User";
+            Rec."End User Code" := OpportunityRec."End User Code";
             Rec.Modify(true);
         end;
     end;

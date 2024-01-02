@@ -35,6 +35,16 @@ pageextension 50120 PurchaseQuoteCardExt extends "Purchase Quote"
                     end;
                 end;
             }
+            field("End User"; Rec."End User")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the End User field.';
+            }
+            field("End User Code"; Rec."End User Code")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the End User Code field.';
+            }
             field("Opportunity No."; Rec."Opportunity No.")
             {
                 ApplicationArea = All;
